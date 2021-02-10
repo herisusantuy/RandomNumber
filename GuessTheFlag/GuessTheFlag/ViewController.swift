@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     
     var countries = [String]()
     var score = 0
+    var correctAnswer = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,19 +28,44 @@ class ViewController: UIViewController {
         
         // setting border color
         firstButton.layer.borderColor = UIColor.lightGray.cgColor
-        secondButton.layer.borderColor = UIColor(red: 1.0, green: 0.6, blue: 0.2, alpha: 1.0).cgColor
+        secondButton.layer.borderColor = UIColor.lightGray.cgColor
         thirdButton.layer.borderColor = UIColor.lightGray.cgColor
         
         
         askQuestion()
     }
     
-    func askQuestion(){
+    func askQuestion(action: UIAlertAction! = nil){
+        // shuffle is method to randomly reorder the elements of an array
+        countries.shuffle()
+        // generate random number between 0-2
+        correctAnswer = Int.random(in: 0...2)
         firstButton.setImage(UIImage(named: countries[0]), for: .normal)
         secondButton.setImage(UIImage(named: countries[1]), for: .normal)
         thirdButton.setImage(UIImage(named: countries[2]), for: .normal)
+        
+        // setting title of the page
+        title = countries[correctAnswer].uppercased()
     }
-
+    
+    
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        var title: String
+        
+        if sender.tag == correctAnswer {
+            title = "Correct"
+            score += 1
+        } else {
+            title = "Wrong"
+            score -= 1
+        }
+        
+        let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+        
+        present(ac, animated: true)
+    }
+    
 
 }
 
