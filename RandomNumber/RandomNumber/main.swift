@@ -29,7 +29,7 @@ while keepPlaying {
         if let userGuess = Int(input){
             if userGuess == randomNumber {
                 continueGuessing = false
-                print("Correct answer!")
+                print("Correct answer..!")
             } else if userGuess > randomNumber {
                 print("Guess is too hight...")
             } else {
