@@ -53,7 +53,9 @@ class ViewController: UIViewController {
     
     @IBAction func buttonTapped(_ sender: UIButton) {
         var title: String
+        // to count how many question
         question += 1
+        // if question already reached 10 the game will be over
         if question <= 10 {
             if sender.tag == correctAnswer {
                 title = "Correct"
